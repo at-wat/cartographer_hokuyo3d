@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>cartographer_hokuyo3d</name>
+  <version>0.0.0</version>
+  <description>The cartographer_hokuyo3d package</description>
+
+  <maintainer email="atsushi.w@ieee.org">Atsushi Watanabe</maintainer>
+  <license>BSD</license>
+  <author email="atsushi.w@ieee.org">Atsushi Watanabe</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>hokuyo3d</run_depend>
+  <run_depend>cartographer_ros</run_depend>
+  <run_depend>imu_tools</run_depend>
+
+  <export>
+  </export>
+</package>
