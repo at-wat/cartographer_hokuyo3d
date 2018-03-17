@@ -34,11 +34,14 @@
   <node name="cartographer_node" pkg="cartographer_ros"
       type="cartographer_node"
       args="-configuration_directory $(find cartographer_hokuyo3d)/configuration_files
-            -configuration_basename hokuyo3d_single.lua" output="screen" />
+            -configuration_basename hokuyo3d_single.lua" output="screen">
+    <remap from="/imu" to="/imu/data" />
+    <remap from="points2" to="/cloud" />
+  </node>
 
   <node pkg="hokuyo3d" type="hokuyo3d" name="hokuyo3d" unless="$(arg use_log)">
     <param name="output_cycle" value="field" />
-    <remap from="~/hokuyo_cloud2" to="/points2" />
+    <remap from="~/hokuyo_cloud2" to="/cloud" />
     <remap from="~/imu" to="/imu/data_raw" />
   </node>
 
