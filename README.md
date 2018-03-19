@@ -1,6 +1,6 @@
 # cartographer_hokuyo3d
 
-## About
+## Package Summary
 
 The package provides a quick demonstration of 3-D SLAM using hokuyo3d (driver node for Hokuyo YVT series) and Google Cartographer.
 
