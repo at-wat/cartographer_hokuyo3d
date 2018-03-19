@@ -1,11 +1,11 @@
-cartographer_hokuyo3d
+# cartographer_hokuyo3d
 ---
 
-# About
+## About
 
 The package provides a quick demonstration of 3-D SLAM using hokuyo3d (driver node for Hokuyo YVT series) and Google Cartographer.
 
-# Build and Run
+## Build and Run
 
 Running in docker container is recommended to avoid linux installation related problems.
 This requires Docker and docker-compose installed. (see https://docs.docker.com/install/ and https://docs.docker.com/compose/install/)
