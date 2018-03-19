@@ -1,0 +1,18 @@
+- git:
+    local-name: cartographer
+    uri: https://github.com/googlecartographer/cartographer.git
+    version: 0.3.0
+- git:
+    local-name: cartographer_ros
+    uri: https://github.com/googlecartographer/cartographer_ros.git
+    version: 0.3.0
+- git:
+    local-name: ceres-solver
+    uri: https://ceres-solver.googlesource.com/ceres-solver.git
+    version: 1.13.0
+- git:
+    local-name: hokuyo3d
+    uri: https://github.com/at-wat/hokuyo3d.git
+- git:
+    local-name: cartographer_hokuyo3d
+    uri: https://github.com/at-wat/cartographer_hokuyo3d
