@@ -28,39 +28,15 @@
   POSSIBILITY OF SUCH DAMAGE.
 -->
 <launch>
-  <arg name="rviz" default="true" />
-  <arg name="use_log" default="false" />
-  <arg name="bag_file" default="" />
-  <arg name="record" default="false" />
-
-  <node name="cartographer_node" pkg="cartographer_ros"
-      type="cartographer_node"
-      args="-configuration_directory $(find cartographer_hokuyo3d)/configuration_files
-            -configuration_basename hokuyo3d_single.lua" output="screen">
-    <remap from="/imu" to="/imu/data" />
-    <remap from="points2" to="/cloud" />
+  <node name="cartographer_assets_writer" pkg="cartographer_ros" required="true"
+      type="cartographer_assets_writer" args="
+          -configuration_directory $(arg config_dir)
+          -configuration_basename cartographer_asset.lua
+          -output_file_prefix $(arg output_file_prefix)
+          -bag_filenames $(arg bag_filenames)
+          -pose_graph_filename $(arg pose_graph_filename)
+          -urdf_filename $(arg urdf_filename)"
+      output="screen">
   </node>
-
-  <node pkg="hokuyo3d" type="hokuyo3d" name="hokuyo3d"
-      respawn="true" unless="$(arg use_log)">
-    <param name="output_cycle" value="frame" />
-    <remap from="~/hokuyo_cloud2" to="/cloud" />
-    <remap from="~/imu" to="/imu/data_raw" />
-  </node>
-
-  <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d.urdf" />
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
-
-  <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter">
-    <param name="use_mag" type="bool" value="false" />
-    <param name="publish_tf" type="bool" value="false" />
-  </node>
-
-  <node name="rviz" pkg="rviz" type="rviz" respawn="true"
-      args="-d $(find cartographer_hokuyo3d)/configuration_files/demo_3d.rviz" if="$(arg rviz)" />
-
-  <node pkg="rosbag" type="record" name="rosbag_record"
-      args="-O $(arg bag_file) /cloud /imu/data_raw"
-      output="screen" if="$(arg record)" />
 
 </launch>
