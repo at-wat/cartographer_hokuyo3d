@@ -34,8 +34,8 @@ options = {
   map_frame = "map",
   tracking_frame = "hokuyo3d_imu",
   published_frame = "hokuyo3d_link",
-  odom_frame = "odom",
-  provide_odom_frame = true,
+  odom_frame = "hokuyo3d_link",
+  provide_odom_frame = false,
   use_odometry = false,
   num_laser_scans = 0,
   num_multi_echo_laser_scans = 0,
@@ -45,16 +45,19 @@ options = {
   submap_publish_period_sec = 0.3,
   pose_publish_period_sec = 5e-3,
   trajectory_publish_period_sec = 30e-3,
+  rangefinder_sampling_ratio = 1.,
+  odometry_sampling_ratio = 1.,
+  imu_sampling_ratio = 1.,
 }
 
-MAX_3D_LASER_RANGE = 35.
+MAX_3D_LASER_RANGE = 25.
 
 --------------------------------
 -- Trajectory builder settings.
 
 TRAJECTORY_BUILDER_3D.max_range = MAX_3D_LASER_RANGE
 TRAJECTORY_BUILDER_3D.min_range = 1.0
-TRAJECTORY_BUILDER_3D.scans_per_accumulation = 8
+TRAJECTORY_BUILDER_3D.num_accumulated_range_data = 32
 TRAJECTORY_BUILDER_3D.voxel_filter_size = 0.1
 
 TRAJECTORY_BUILDER_3D.high_resolution_adaptive_voxel_filter.max_range = 10.
@@ -63,10 +66,10 @@ TRAJECTORY_BUILDER_3D.low_resolution_adaptive_voxel_filter.max_range = MAX_3D_LA
 TRAJECTORY_BUILDER_3D.imu_gravity_time_constant = 20.0
 
 
-TRAJECTORY_BUILDER_3D.submaps.num_range_data = 10
-TRAJECTORY_BUILDER_3D.submaps.high_resolution = 0.2
-TRAJECTORY_BUILDER_3D.submaps.low_resolution = 0.5
-TRAJECTORY_BUILDER_3D.submaps.high_resolution_max_range = 25.
+TRAJECTORY_BUILDER_3D.submaps.num_range_data = 48
+TRAJECTORY_BUILDER_3D.submaps.high_resolution = 0.1
+TRAJECTORY_BUILDER_3D.submaps.low_resolution = 0.4
+TRAJECTORY_BUILDER_3D.submaps.high_resolution_max_range = 10.
 TRAJECTORY_BUILDER_3D.submaps.range_data_inserter.hit_probability = 0.65
 TRAJECTORY_BUILDER_3D.submaps.range_data_inserter.miss_probability = 0.4
 
@@ -76,21 +79,23 @@ TRAJECTORY_BUILDER_3D.submaps.range_data_inserter.miss_probability = 0.4
 MAP_BUILDER.use_trajectory_builder_3d = true
 MAP_BUILDER.num_background_threads = 3
 
-MAP_BUILDER.sparse_pose_graph.optimization_problem.huber_scale = 5e2
-MAP_BUILDER.sparse_pose_graph.optimize_every_n_scans = 16
-MAP_BUILDER.sparse_pose_graph.constraint_builder.sampling_ratio = 0.2
-MAP_BUILDER.sparse_pose_graph.global_sampling_ratio = 0.2
-MAP_BUILDER.sparse_pose_graph.optimization_problem.ceres_solver_options.max_num_iterations = 12
+MAP_BUILDER.pose_graph.optimization_problem.huber_scale = 0.6
+MAP_BUILDER.pose_graph.optimize_every_n_nodes = 16
+MAP_BUILDER.pose_graph.constraint_builder.sampling_ratio = 0.5
+MAP_BUILDER.pose_graph.global_sampling_ratio = 0.2
+MAP_BUILDER.pose_graph.optimization_problem.ceres_solver_options.max_num_iterations = 12
 
 -- Set min_score according to the histogram from cartographer.
-MAP_BUILDER.sparse_pose_graph.constraint_builder.min_score = 0.79
-MAP_BUILDER.sparse_pose_graph.constraint_builder.global_localization_min_score = 0.82
+MAP_BUILDER.pose_graph.constraint_builder.min_score = 0.79
+MAP_BUILDER.pose_graph.constraint_builder.global_localization_min_score = 0.82
 
 -- Global constraint settings.
-MAP_BUILDER.sparse_pose_graph.constraint_builder.max_constraint_distance= 65.0
-MAP_BUILDER.sparse_pose_graph.constraint_builder.fast_correlative_scan_matcher_3d.linear_xy_search_window = 75.0
-MAP_BUILDER.sparse_pose_graph.constraint_builder.fast_correlative_scan_matcher_3d.linear_z_search_window = 30.0
-MAP_BUILDER.sparse_pose_graph.constraint_builder.fast_correlative_scan_matcher_3d.angular_search_window = math.rad(30.)
+MAP_BUILDER.pose_graph.constraint_builder.max_constraint_distance= 65.0
+MAP_BUILDER.pose_graph.constraint_builder.fast_correlative_scan_matcher_3d.linear_xy_search_window = 5.0
+MAP_BUILDER.pose_graph.constraint_builder.fast_correlative_scan_matcher_3d.linear_z_search_window = 1.0
+MAP_BUILDER.pose_graph.constraint_builder.fast_correlative_scan_matcher_3d.angular_search_window = math.rad(15.)
+
+MAP_BUILDER.pose_graph.global_constraint_search_after_n_seconds = 10.0
 
 
 return options

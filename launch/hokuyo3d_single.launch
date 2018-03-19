@@ -39,8 +39,9 @@
     <remap from="points2" to="/cloud" />
   </node>
 
-  <node pkg="hokuyo3d" type="hokuyo3d" name="hokuyo3d" unless="$(arg use_log)">
-    <param name="output_cycle" value="field" />
+  <node pkg="hokuyo3d" type="hokuyo3d" name="hokuyo3d"
+      respawn="true" unless="$(arg use_log)">
+    <param name="output_cycle" value="line" />
     <remap from="~/hokuyo_cloud2" to="/cloud" />
     <remap from="~/imu" to="/imu/data_raw" />
   </node>
