@@ -18,6 +18,7 @@ Provided docker-compose is for Intel HD and Radeon graphic boards. NVIDIA requir
 2. Connect YVT sensor having the IP address of 192.168.0.10 (sensor default)
 3. Run
     ```
+    $ xhost +  # Allow showing rviz from docker container (needed to run for each login)
     $ docker-compose up
     ```
     
