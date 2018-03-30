@@ -1,8 +1,7 @@
 version: '2'
 services:
   cartographer-hokuyo3d:
-    image: cartographer-hokuyo3d
-    build: .
+    image: atwat/cartographer_hokuyo3d
     environment:
       DISPLAY:
       QT_X11_NO_MITSHM: "1"
