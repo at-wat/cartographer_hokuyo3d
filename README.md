@@ -31,3 +31,13 @@ Resultant data including bag file, trajectory node pbstream, and pointcloud in p
 ```console
 $ docker build -t atwat/cartographer_hokuyo3d:latest .
 ```
+
+## Apply local changes
+
+To apply manually updated parameters into the docker image, add following two lines to the `volumes:` section in the docker-compose.yaml.
+Now, your local change is bound to the container.
+
+```yaml
+      - "${PWD}/configuration_files:/opt/ros/kinetic/share/cartographer_hokuyo3d/configuration_files"
+      - "${PWD}/launch:/opt/ros/kinetic/share/cartographer_hokuyo3d/launch"
+```
