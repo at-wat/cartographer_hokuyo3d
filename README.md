@@ -3,6 +3,7 @@
 ## Package Summary
 
 The package provides a quick demonstration of 3-D SLAM using hokuyo3d (driver node for Hokuyo YVT series) and Google Cartographer.
+The parameters in this package are compatible with cartographer 0.3.0.
 
 ## Run the demo
 
@@ -34,7 +35,7 @@ $ docker build -t atwat/cartographer_hokuyo3d:latest .
 
 ## Apply local changes
 
-To apply manually updated parameters into the docker image, add following two lines to the `volumes:` section in the docker-compose.yaml.
+To apply manually updated parameters into the docker image, add following two lines to the `volumes:` section in the docker-compose.yml.
 Now, your local change is bound to the container.
 
 ```yaml
