@@ -45,6 +45,10 @@
       respawn="true" unless="$(arg use_log)">
     <param name="output_cycle" value="line" />
     <remap from="~/hokuyo_cloud2" to="/cloud" />
+    <remap from="~/imu" to="/imu/data_raw1" />
+  </node>
+  <node pkg="cartographer_hokuyo3d" type="imu_compensate" name="imu_compensate">
+    <remap from="~/imu_raw" to="/imu/data_raw1" />
     <remap from="~/imu" to="/imu/data_raw" />
   </node>
 
@@ -54,6 +58,8 @@
   <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter">
     <param name="use_mag" type="bool" value="false" />
     <param name="publish_tf" type="bool" value="false" />
+    <param name="gain" value="0.05" />
+    <param name="zeta" value="0.05" />
   </node>
 
   <node name="rviz" pkg="rviz" type="rviz" respawn="true"
