@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd ~/.slam_results
+
 if [ ! -f pointcloud.pcd ]
 then
   echo "-------------------------------------------------------"
@@ -11,6 +13,6 @@ then
 fi
 
 pcl_outlier_removal pointcloud.pcd pointcloud.inlier.pcd -method statistical -mean_k 4 -std_dev_mul -0.2
-pcl_voxel_grid pointcloud.inlier.pcd pointcloud.filtered.pcd -leaf 0.1,0.1,0.1
+pcl_voxel_grid pointcloud.inlier.pcd pointcloud.filtered.pcd -leaf 0.05,0.05,0.05
 
 pcl_viewer pointcloud.filtered.pcd

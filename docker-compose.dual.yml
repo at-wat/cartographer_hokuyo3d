@@ -1,0 +1,14 @@
+version: '2'
+services:
+  cartographer-hokuyo3d:
+    image: atwat/cartographer_hokuyo3d
+    environment:
+      DISPLAY:
+      QT_X11_NO_MITSHM: "1"
+    volumes:
+      - "${PWD}/configuration_files:/opt/ros/kinetic/share/cartographer_hokuyo3d/configuration_files:ro"
+      - "${PWD}/launch:/opt/ros/kinetic/share/cartographer_hokuyo3d/launch:ro"
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
+      - "${HOME}/.slam_results/:/slam_results/"
+    devices:
+      - "/dev/dri:/dev/dri"

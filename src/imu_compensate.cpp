@@ -20,11 +20,11 @@ private:
     double acc = sqrt(pow(imu.linear_acceleration.x, 2.0) + pow(imu.linear_acceleration.y, 2.0) + pow(imu.linear_acceleration.z, 2.0));
 
     cnt++;
-    if (cnt == 500)
+    if (cnt == 2000)
     {
       ROS_ERROR("IMU zero calibrated");
     }
-    else if (cnt < 500)
+    else if (cnt < 2000)
     {
       double k = 0.01;
       gyro_zero[0] = gyro_zero[0] * (1.0 - k) + imu.angular_velocity.x * k;

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot name="hokuyo3d">
+  <link name="hokuyo3d" />
+  <link name="hokuyo3d_imu" />
+  <link name="hokuyo3d_mag" />
+  <link name="hokuyo3d_link" />
+  <link name="hokuyo3d_1" />
+  <link name="hokuyo3d_link_1" />
+
+  <joint name="base_to_laser" type="fixed">
+    <parent link="hokuyo3d_link" />
+		<child link="hokuyo3d" />
+    <origin xyz="0.071 0.0 0.0055" rpy="0.0 0.0 0.0" />
+  </joint>
+  <joint name="base_to_imu" type="fixed">
+    <parent link="hokuyo3d_link" />
+		<child link="hokuyo3d_imu" />
+    <origin xyz="0.01 0.0 0.0" rpy="1.571 0.0 1.571" />
+  </joint>
+  <joint name="base_to_mag" type="fixed">
+    <parent link="hokuyo3d_link" />
+		<child link="hokuyo3d_mag" />
+    <origin xyz="0.01 0.0 0.0" rpy="-1.571 -1.571 1.571" />
+  </joint>
+
+  <joint name="base_to_laser1" type="fixed">
+    <parent link="hokuyo3d_link_1" />
+		<child link="hokuyo3d_1" />
+    <origin xyz="0.071 0.0 0.0055" rpy="0.0 0.0 0.0" />
+  </joint>
+  <joint name="base_to_base" type="fixed">
+    <parent link="hokuyo3d_link" />
+		<child link="hokuyo3d_link_1" />
+    <origin xyz="-0.025 0.0 -0.03" rpy="0.0 -0.436332313 3.141592654" />
+  </joint>
+</robot>
