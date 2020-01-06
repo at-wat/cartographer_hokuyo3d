@@ -47,8 +47,7 @@
     <remap from="~/hokuyo_cloud2" to="/cloud" />
     <remap from="~/imu" to="/imu/data_raw" />
   </node>
-  <node pkg="cartographer_hokuyo3d" type="imu_compensate" name="imu_compensate">
-  </node>
+  <node pkg="cartographer_hokuyo3d" type="imu_compensate" name="imu_compensate" />
 
   <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d.urdf" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
