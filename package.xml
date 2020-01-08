@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package>
+<package format="2">
   <name>cartographer_hokuyo3d</name>
   <version>0.0.0</version>
   <description>The cartographer_hokuyo3d package</description>
@@ -10,9 +10,12 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <run_depend>hokuyo3d</run_depend>
-  <run_depend>cartographer_ros</run_depend>
-  <run_depend>imu_tools</run_depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+
+  <exec_depend>hokuyo3d</exec_depend>
+  <exec_depend>cartographer_ros</exec_depend>
+  <exec_depend>imu_tools</exec_depend>
 
   <export>
   </export>

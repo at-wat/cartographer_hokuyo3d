@@ -37,8 +37,8 @@
       type="cartographer_node"
       args="-configuration_directory $(find cartographer_hokuyo3d)/configuration_files
             -configuration_basename hokuyo3d_single.lua" output="screen">
-    <remap from="/imu" to="/imu/data" />
-    <remap from="points2" to="/cloud" />
+    <remap from="imu" to="imu/data" />
+    <remap from="points2" to="cloud" />
   </node>
 
   <node pkg="hokuyo3d" type="hokuyo3d" name="hokuyo3d"
@@ -47,13 +47,17 @@
     <remap from="~/hokuyo_cloud2" to="/cloud" />
     <remap from="~/imu" to="/imu/data_raw" />
   </node>
+  <node pkg="cartographer_hokuyo3d" type="imu_compensate" name="imu_compensate" />
 
   <param name="robot_description" command="cat $(find cartographer_hokuyo3d)/configuration_files/hokuyo3d.urdf" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
   <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter">
+    <remap from="imu/data_raw" to="imu/data_raw_filtered" />
     <param name="use_mag" type="bool" value="false" />
     <param name="publish_tf" type="bool" value="false" />
+    <param name="gain" value="0.05" />
+    <param name="zeta" value="0.05" />
   </node>
 
   <node name="rviz" pkg="rviz" type="rviz" respawn="true"
